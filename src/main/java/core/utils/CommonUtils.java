@@ -1,5 +1,7 @@
 package core.utils;
 
+import org.junit.jupiter.api.Assertions;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,13 +23,13 @@ public class CommonUtils {
             prop.load(input);
             value = prop.getProperty(propertyName);
         } catch (Exception ex) {
-            // Assert.fail(ex.getMessage());
+            Assertions.fail(ex.getMessage());
         } finally {
             if (input != null) {
                 try {
                     input.close();
-                } catch (IOException e) {
-                    //  Assert.fail(e.getMessage());
+                } catch (IOException ex) {
+                    Assertions.fail(ex.getMessage());
                 }
             }
         }
