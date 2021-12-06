@@ -33,10 +33,11 @@
         </dependency>
 
         <dependency>
-            <groupId>io.github.bonigarcia</groupId>
-            <artifactId>webdrivermanager</artifactId>
-            <version>5.0.2</version>
+            <groupId>io.github.wniemiec-util-java</groupId>
+            <artifactId>string-utils</artifactId>
+            <version>1.0.0</version>
         </dependency>
+
     </dependencies>
 
 </project>

@@ -1,21 +1,19 @@
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
-import core.driver.DriverFactory;
+import core.utils.CommonUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import pageObject.HomePage;
 import pageObject.ProductDetailsPage;
 import pageObject.ProductListPage;
 import pageObject.sections.LoginPopup;
 import pageObject.sections.MenuSection;
 
+import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
+
 
 public class BaseTest {
-    WebDriver driver;
     HomePage homePage;
     ProductListPage productListPage;
     ProductDetailsPage productDetailsPage;
@@ -24,14 +22,9 @@ public class BaseTest {
 
     @BeforeEach
     public void setup() {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("enableVNC", true);
-        capabilities.setCapability("enableVideo", true);
-        Configuration.browserCapabilities = capabilities;
-
-        DriverFactory driverFactory = new DriverFactory();
-        driver = driverFactory.getDriver(capabilities);
-        setWebDriver(driver);
+        Configuration.browser = CommonUtils.getCentralData("browser");
+        Configuration.timeout = 6000;
+        open("https://rozetka.com.ua/");
         initializeAllPages();
     }
 
