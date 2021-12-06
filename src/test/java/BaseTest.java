@@ -1,12 +1,18 @@
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.WebDriverRunner;
 import core.driver.DriverFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import pageObject.HomePage;
 import pageObject.ProductDetailsPage;
 import pageObject.ProductListPage;
 import pageObject.sections.LoginPopup;
 import pageObject.sections.MenuSection;
+
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
 
 public class BaseTest {
     WebDriver driver;
@@ -18,20 +24,28 @@ public class BaseTest {
 
     @BeforeEach
     public void setup() {
-        driver = new DriverFactory().getDriver();
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("enableVNC", true);
+        capabilities.setCapability("enableVideo", true);
+        Configuration.browserCapabilities = capabilities;
+
+        DriverFactory driverFactory = new DriverFactory();
+        driver = driverFactory.getDriver(capabilities);
+        setWebDriver(driver);
         initializeAllPages();
     }
 
     private void initializeAllPages() {
-        homePage = new HomePage(driver);
-        productDetailsPage = new ProductDetailsPage(driver);
-        productListPage = new ProductListPage(driver);
-        loginPopup = new LoginPopup(driver);
-        menuSection = new MenuSection(driver);
+        homePage = new HomePage();
+        productDetailsPage = new ProductDetailsPage();
+        productListPage = new ProductListPage();
+        loginPopup = new LoginPopup();
+        menuSection = new MenuSection();
     }
 
     @AfterEach
     public void quite() {
-        driver.quit();
+        WebDriverRunner.clearBrowserCache();
+        getWebDriver().quit();
     }
 }

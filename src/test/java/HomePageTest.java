@@ -7,4 +7,5 @@ public class HomePageTest extends BaseTest {
         homePage.openMenu();
         menuSection.verifyMenuIsOpened();
     }
+
 }

@@ -1,30 +1,28 @@
 package pageObject.sections;
 
-import org.junit.jupiter.api.Assertions;
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+
+import static com.codeborne.selenide.Selenide.$;
 
 public class MenuSection {
-    WebDriver driver;
 
-    public MenuSection(WebDriver driver) {
-        this.driver = driver;
-    }
 
-    By menuSection = By.xpath("//div[contains(@class,'side-menu drawer-content')]");
-    By loginButton = By.xpath("//button[contains(@class,'side-menu__auth-button')][1]");
-    By registrationsButton = By.xpath("//button[contains(@class,'side-menu__auth-button')][2]");
+    SelenideElement menuSection = $(By.xpath("//div[contains(@class,'side-menu drawer-content')]"));
+    SelenideElement loginButton = $(By.xpath("//button[contains(@class,'side-menu__auth-button')][1]"));
+    SelenideElement registrationsButton = $(By.xpath("//button[contains(@class,'side-menu__auth-button')][2]"));
 
 
     public void verifyMenuIsOpened() {
-        Assertions.assertTrue(driver.findElement(menuSection).isDisplayed());
+        menuSection.shouldBe(Condition.visible);
     }
 
     public void clickOnLoginButton() {
-        driver.findElement(loginButton).click();
+        loginButton.shouldBe(Condition.visible).click();
     }
 
     public void clickOnRegistrationButton() {
-        driver.findElement(registrationsButton).click();
+        registrationsButton.shouldBe(Condition.visible).click();
     }
 }

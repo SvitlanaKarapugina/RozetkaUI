@@ -1,26 +1,23 @@
 package pageObject;
 
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+
+import static com.codeborne.selenide.Selenide.$;
 
 public class HomePage {
-    WebDriver driver;
 
-    public HomePage(WebDriver driver) {
-        this.driver = driver;
-    }
-
-    By pageHeader = By.cssSelector("div.header-layout");
-    By searchField = By.xpath("//input[contains(@class,'search-form__input')]");
-    By searchButton = By.xpath("//button[contains(@class,'search-form__submit')]");
-    By hamburgerMenuButton = By.xpath("//button[@class='header__button']");
+    SelenideElement pageHeader = $("div.header-layout");
+    SelenideElement searchField = $(By.xpath("//input[contains(@class,'search-form__input')]"));
+    SelenideElement searchButton = $(By.xpath("//button[contains(@class,'search-form__submit')]"));
+    SelenideElement hamburgerMenuButton = $(By.xpath("//button[@class='header__button']"));
 
     public void searchData(String searchData) {
-        driver.findElement(searchField).sendKeys(searchData);
-        driver.findElement(searchButton).click();
+        searchField.sendKeys(searchData);
+        searchButton.click();
     }
 
     public void openMenu() {
-        driver.findElement(hamburgerMenuButton).click();
+        hamburgerMenuButton.click();
     }
 }

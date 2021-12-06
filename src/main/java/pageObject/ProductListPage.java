@@ -1,29 +1,29 @@
 package pageObject;
 
-import org.junit.jupiter.api.Assertions;
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+
+import java.util.List;
+
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 
 public class ProductListPage {
-    WebDriver driver;
 
-    public ProductListPage(WebDriver driver) {
-        this.driver = driver;
-    }
-
-    By productListPageHeader = By.xpath("//h1[contains(@class,'catalog-heading ng-star-inserted')]");
-    By productsGrid = By.xpath("//div[@data-goods-id]//a[contains(@class, 'goods-tile__picture')]");
-    By emptySearchLabel = By.xpath("//*[@class ='catalog-empty__icon ng-star-inserted']");
+    SelenideElement productListPageHeader = $(By.xpath("//h1[contains(@class,'catalog-heading ng-star-inserted')]"));
+    List<SelenideElement> productsGrid = $$(By.xpath("//div[@data-goods-id]//a[contains(@class, 'goods-tile__picture')]"));
+    SelenideElement emptySearchLabel = $(By.xpath("//*[@class ='catalog-empty__icon ng-star-inserted']"));
 
     public void verifyProductListPageHeader(String searchData) {
-        Assertions.assertEquals("«" + searchData + "»", driver.findElement(productListPageHeader).getText(), "Page Search data header incorrect");
+        productListPageHeader.shouldHave(Condition.text("«" + searchData + "»"));
     }
 
     public void clickOnFirstProduct() {
-        driver.findElement(productsGrid).click();
+        productsGrid.get(1).shouldBe(Condition.visible).click();
     }
 
     public boolean isEmptySearchLabelPresent() {
-        return driver.findElement(emptySearchLabel).isDisplayed();
+        return emptySearchLabel.is(Condition.appear);
     }
 }

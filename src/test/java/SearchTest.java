@@ -1,9 +1,6 @@
-import core.enums.Browsers;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIf;
 
 public class SearchTest extends BaseTest {
     private final String searchData = "Canon EOS 800D";

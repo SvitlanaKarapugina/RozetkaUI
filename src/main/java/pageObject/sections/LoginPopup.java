@@ -1,19 +1,15 @@
 package pageObject.sections;
 
-import org.junit.jupiter.api.Assertions;
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+
+import static com.codeborne.selenide.Selenide.$;
 
 public class LoginPopup {
-    WebDriver driver;
-
-    public LoginPopup(WebDriver driver) {
-        this.driver = driver;
-    }
-
-    By loginPopup = By.xpath("//div[contains(@class,'modal__holder')]");
+    SelenideElement loginPopup = $(By.xpath("//div[contains(@class,'modal__holder')]"));
 
     public void verifyLoginPopupIsOpened() {
-        Assertions.assertTrue(driver.findElement(loginPopup).isDisplayed(), "Login popup is not opened");
+        loginPopup.shouldBe(Condition.appear);
     }
 }
